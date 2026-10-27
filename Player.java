@@ -17,7 +17,6 @@ public class Player extends Entity {
             int attack,
             int speed,
             int defence,
-            int currentAp,
             int level,
             int exp,
             int maxAp) {
@@ -90,6 +89,47 @@ public class Player extends Entity {
     public void gainExp(int addedExp){
         exp = exp + addedExp;
     }
+    
+    // method for giving the player their class
+    public Player createPlayer(int classChoice){
+        if (classChoice == 1){
+            Player jobless = new Player(
+                "Jobless", "null", 1, 100, 8, 15, 3, 1, 0, 30);
+            return jobless;
+        }
+        if (classChoice == 2){
+            Player boxer = new Player(
+            "Boxer", "null", 1, 80, 12, 20, 1, 1, 0, 20);
+            return boxer;
+        }
+        if (classChoice == 3){
+            Player doctor = new Player(
+            "Doctor", "null", 1, 80, 6, 12, 5, 1, 0, 20);
+            return doctor;
+        }
+        if (classChoice == 4){
+            Player detective = new Player(
+            "Detective", "null", 1, 120, 6, 20, 1, 1, 0, 50);
+            return detective;
+        }
+        else{
+            Player fixme = new Player(
+                "FIXME", "FIXME", 1, 1000, 800, 150, 300, 1, 0, 300);
+            return fixme;
+        }
+    }
+    
+    //character classes (boxer, doctor, detective, jobless)
+    // boxer: atk 12,hp 80, def 1, speed 20, ap 20 || skills: right-hook, perfect block
+    // doctor: atk 6,hp 80, def 5, speed 12, ap 20 || skills: pop pill, poison
+    // jobless: atk 8, hp 100, def 3, speed 15, ap 30 || skills: fight or flight, borrowed help
+    // detective: atk 6, hp 120, def 1, speed 20, ap 50 || skills: fmj, prosecution
+    
+    
+    
+    // ap skills (jab, flurry, right hook)
+    
+    // level up heal and stat inc (20%)
     
     // inventory items initalized here as an arraylist
     

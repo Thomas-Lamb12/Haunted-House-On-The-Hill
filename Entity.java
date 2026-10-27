@@ -100,4 +100,6 @@ public abstract class Entity {
 
         currentHp = Math.min(maxHp, currentHp + amount);
     }
+    
+    // attack
 }

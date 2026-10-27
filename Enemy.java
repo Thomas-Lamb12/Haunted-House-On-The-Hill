@@ -15,6 +15,7 @@ public class Enemy extends Entity {
     super(name,id,maxHp,attack,speed,defence);
         
     }
-    
+    // hp = 20 increasing, attack low increases
+    // 12 encounters, 3 fights for lvl up
     // drop initialized here as an arraylist
 }
