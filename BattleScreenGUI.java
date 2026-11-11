@@ -1,16 +1,15 @@
-package battle.screen.gui;
+package hauntedhousehill;
 
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class BattleScreenGUI 
 {
     JFrame battleScreen;
     JPanel enemyPanel;
+    JLabel enemyNameLabel;
     JPanel HPPanel;
     JLabel HPAmount;
     JPanel HPAmountPanel;
@@ -43,6 +42,10 @@ public class BattleScreenGUI
         enemyPanel = new JPanel();
         enemyPanel.setBounds(90,25,1200,500);
         enemyPanel.setBackground(Color.pink);
+        enemyNameLabel = new JLabel("ENEMY");
+        enemyNameLabel.setForeground(Color.green);
+        enemyNameLabel.setFont(buttonFont);
+        enemyPanel.add(enemyNameLabel);
         battleScreen.add(enemyPanel);
         
         HPAmountPanel = new JPanel();
@@ -82,7 +85,11 @@ public class BattleScreenGUI
         attackButton.setFont(buttonFont);
         attackPanel.add(attackButton);
         battleScreen.add(attackPanel);
-        
+        attackButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() ->{
+                enemyNameLabel.setVisible(false);
+            });
+        });
         skillPanel = new JPanel();
         skillPanel.setBounds(90,650,800,100);
         skillPanel.setBackground(Color.black);

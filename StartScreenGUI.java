@@ -1,11 +1,7 @@
-package startscreengui;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+package hauntedhousehill;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 public class StartScreenGUI 
 {
     JFrame startScreen;
@@ -45,6 +41,11 @@ public class StartScreenGUI
         startButton.setBackground(Color.black);
         startButton.setForeground(Color.white);
         startButton.setFont(buttonFont);
+        startButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                new BattleScreenGUI();
+            });
+        });
         startButtonPanel.add(startButton);
         startScreen.add(startButtonPanel);
         
@@ -67,7 +68,7 @@ public class StartScreenGUI
         }
     public static void main(String[] args) 
     {
-        new StartScreenGUI();
+       
     }
     
 }
