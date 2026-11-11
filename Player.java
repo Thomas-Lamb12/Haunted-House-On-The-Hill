@@ -91,7 +91,7 @@ public class Player extends Entity {
     }
     
     // method for giving the player their class
-    public Player createPlayer(int classChoice){
+    public static Player createPlayer(int classChoice){
         if (classChoice == 1){
             Player thePlayer = new Player(
                 "Jobless", "null", 1, 100, 8, 15, 3, 1, 0, 30);
