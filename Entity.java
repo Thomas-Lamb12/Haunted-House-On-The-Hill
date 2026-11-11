@@ -101,5 +101,9 @@ public abstract class Entity {
         currentHp = Math.min(maxHp, currentHp + amount);
     }
     
-    // attack
+    public void attack(int amount) {
+       int amountNew = amount;
+        
+       takeDamage(amountNew);
+    }
 }
