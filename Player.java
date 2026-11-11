@@ -94,27 +94,27 @@ public class Player extends Entity {
     public Player createPlayer(int classChoice){
         if (classChoice == 1){
             Player thePlayer = new Player(
-                "Jobless", "null", 0, 100, 8, 15, 3, 1, 0, 30);
+                "Jobless", "null", 1, 100, 8, 15, 3, 1, 0, 30);
             return thePlayer;
         }
         if (classChoice == 2){
             Player thePlayer = new Player(
-            "Boxer", "null", 0, 80, 12, 20, 1, 1, 0, 20);
+            "Boxer", "null", 1, 80, 12, 20, 1, 1, 0, 20);
             return thePlayer;
         }
         if (classChoice == 3){
             Player thePlayer = new Player(
-            "Doctor", "null", 0, 80, 6, 12, 5, 1, 0, 20);
+            "Doctor", "null", 1, 80, 6, 12, 5, 1, 0, 20);
             return thePlayer;
         }
         if (classChoice == 4){
             Player thePlayer = new Player(
-            "Detective", "null", 0, 120, 6, 20, 1, 1, 0, 50);
+            "Detective", "null", 1, 120, 6, 20, 1, 1, 0, 50);
             return thePlayer;
         }
         else{
             Player thePlayer = new Player(
-                "FIXME", "FIXME", 0, 1000, 800, 150, 300, 1, 0, 300);
+                "FIXME", "FIXME", 1, 1000, 800, 150, 300, 1, 0, 300);
             return thePlayer;
         }
     }

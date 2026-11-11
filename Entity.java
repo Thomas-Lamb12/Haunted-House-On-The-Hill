@@ -101,9 +101,20 @@ public abstract class Entity {
         currentHp = Math.min(maxHp, currentHp + amount);
     }
     
-    public void attack(int amount) {
-       int amountNew = amount;
-        
-       takeDamage(amountNew);
+    public void attackTarget(Entity target){
+        int attackPower = this.attack;
+        int accuracyDeviation;
+        if (target.speed - this.speed < 0){
+            accuracyDeviation = 0;
+        }
+        else{
+            accuracyDeviation = target.speed - this.speed;
+        }
+        int accRoll = (int)(Math.random()* (100 - 1 + 1)) + 1;
+        if (accRoll <= accuracyDeviation){
+            return;
+        }
+        target.takeDamage(attackPower);
+        return;
     }
 }
