@@ -16,6 +16,7 @@ public abstract class Entity {
             String name,
             int id,
             int maxHp,
+            int currentHp,
             int attack,
             int speed,
             int defence) {
@@ -32,7 +33,7 @@ public abstract class Entity {
         this.id = id;
         this.name = name.trim();
         this.maxHp = maxHp;
-        this.currentHp = maxHp;
+        this.currentHp = currentHp;
         this.speed = speed;
         this.attack = attack;
         this.defence = defence;
@@ -82,25 +83,7 @@ public abstract class Entity {
         speed = newSpeed;
     }
     
-    // damage and heal framework
-    public void takeDamage(int damage) {
-        if (damage < 0) {
-            throw new IllegalArgumentException(
-                    "Damage cannot be negative.");
-        }
-
-        currentHp = Math.max(0, currentHp - damage);
-    }
-
-    public void heal(int amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException(
-                    "Healing cannot be negative.");
-        }
-
-        currentHp = Math.min(maxHp, currentHp + amount);
-    }
-    
+    // linked to takeDamage
     public void attackTarget(Entity target){
         int attackPower = this.attack;
         int accuracyDeviation;
@@ -114,7 +97,27 @@ public abstract class Entity {
         if (accRoll <= accuracyDeviation){
             return;
         }
-        target.takeDamage(attackPower);
-        return;
+        target.takeDamage(target, attackPower);
+    }
+    
+    // damage framework. Damage can initate a gameover, so THOMAS needs to link it to the game over screen
+    public void takeDamage(Entity target, int damage) {
+        target.currentHp = Math.max(0, currentHp - damage);
+        if (target.id == 0 && target.currentHp <= 0){
+            //game over screen goes here @THOMAS
+        }
+    }
+
+    // heal framework
+    public void heal(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException(
+                    "Healing cannot be negative.");
+        }
+        // prevents currentHp from going above maxHp
+        this.currentHp = Math.min(this.maxHp, this.currentHp + amount);
+        if (this.currentHp > this.maxHp){
+            this.currentHp = this.maxHp;
+        }
     }
 }
