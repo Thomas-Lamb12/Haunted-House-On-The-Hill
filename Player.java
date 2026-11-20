@@ -14,14 +14,16 @@ public class Player extends Entity {
             String name,
             int id,
             int maxHp,
+            int currentHp,
             int attack,
             int speed,
             int defence,
             int level,
             int exp,
-            int maxAp) {
+            int maxAp,
+            int currentAp) {
         
-        super(name,id,maxHp,attack,speed,defence);
+        super(name,id,maxHp,currentHp,attack,speed,defence);
 
         this.cClass = cClass;
         this.maxAp = maxAp;
@@ -72,49 +74,81 @@ public class Player extends Entity {
     
     // setters
     public void setCClass(String newC){
-        cClass = newC;
+        this.cClass = newC;
     }
     public void setMaxAp(int newMaxAp){
-        maxAp = newMaxAp;
+        this.maxAp = newMaxAp;
     }
     public void setLevel(int newLevel){
-        level = newLevel;
+        this.level = newLevel;
     }
     public void incLevel(){
         level++;
     }
     public void setExp(int newExp){
-        exp = newExp;
-    }
-    public void gainExp(int addedExp){
-        exp = exp + addedExp;
+        this.exp = newExp;
     }
     
-    // method for giving the player their class
+    // important method for player level up, requires two additional varibles to be passed and calls levelUp if exp > 3
+    public void gainExp(int addedExp, Player player){
+        player.exp = exp + addedExp;
+        if (exp == 3){
+            levelUp(player);
+        }
+    }
+    
+    public static void levelUp(Player player){
+        // player levelup and exp reset
+        player.level++;
+        player.exp = 0;
+        
+        // gets the players current values, transforms them into doubles and applies lvl up bonus (rounded up)
+        double mathMaxHp = Math.ceil(player.getMaxHp() * .1);
+        double mathAttack = Math.ceil(player.getAttack() * .1);
+        double mathSpeed = Math.ceil(player.getSpeed() * .1);
+        double mathDefence = Math.ceil(player.getDefence() *.1);
+        double mathMaxAp = Math.ceil(player.getMaxAp() * .1);
+        
+        // typecasted stats to be given back to player
+        int newMaxHp = (int)mathMaxHp;
+        int newAttack = (int)mathAttack;
+        int newSpeed = (int)mathSpeed;
+        int newDefence = (int)mathDefence;
+        int newMaxAp = (int)mathMaxAp;
+        
+        // setters for players stats and end of method
+        player.setMaxHP(newMaxHp);
+        player.setAttack(newAttack);
+        player.setSpeed(newSpeed);
+        player.setDefence(newDefence);
+        player.setMaxAp(newMaxAp);
+    }
+    
+    // method for giving the player their class, player ID is 0
     public static Player createPlayer(int classChoice){
         if (classChoice == 1){
             Player thePlayer = new Player(
-                "Jobless", "null", 1, 100, 8, 15, 3, 1, 0, 30);
+                "Jobless", "null", 0, 100, 100, 8, 15, 3, 1, 0, 30, 30);
             return thePlayer;
         }
         if (classChoice == 2){
             Player thePlayer = new Player(
-            "Boxer", "null", 1, 80, 12, 20, 1, 1, 0, 20);
+            "Boxer", "null", 0, 80, 80, 12, 20, 1, 1, 0, 20, 20);
             return thePlayer;
         }
         if (classChoice == 3){
             Player thePlayer = new Player(
-            "Doctor", "null", 1, 80, 6, 12, 5, 1, 0, 20);
+            "Doctor", "null", 0, 80, 80, 6, 12, 5, 1, 0, 20, 20);
             return thePlayer;
         }
         if (classChoice == 4){
             Player thePlayer = new Player(
-            "Detective", "null", 1, 120, 6, 20, 1, 1, 0, 50);
+            "Detective", "null", 0, 120, 120, 6, 20, 1, 1, 0, 50, 50);
             return thePlayer;
         }
         else{
             Player thePlayer = new Player(
-                "FIXME", "FIXME", 1, 1000, 800, 150, 300, 1, 0, 300);
+                "FIXME", "FIXME", 0, 1000, 1000, 800, 150, 300, 1, 0, 300, 300);
             return thePlayer;
         }
     }
