@@ -1,6 +1,8 @@
 package hauntedhousehill;
 
-public abstract class Entity {
+import java.util.ArrayList;
+
+public class Entity {
         // Entity variables: id, name, maxHP, speed, currentHp, defence, attack
     
     protected final int id;
@@ -21,15 +23,12 @@ public abstract class Entity {
             int speed,
             int defence) {
 
+        // keep an eye on this incase giving an empty name throws an error
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException(
                     "Character name cannot be empty.");
         }
-
-        if (maxHp <= 0 || attack < 0 || defence < 0 || speed < 0) {
-            throw new IllegalArgumentException(
-                    "Invalid character stats.");
-        }
+        
         this.id = id;
         this.name = name.trim();
         this.maxHp = maxHp;
@@ -84,38 +83,88 @@ public abstract class Entity {
     }
     
     // linked to takeDamage
-    public void attackTarget(Entity target){
+    // this is for player attacks
+    public void attackTarget(Entity target, Player thePlayer){
         int attackPower = this.attack;
         int accuracyDeviation;
+        int accuracyBonus;
+        
         if (target.speed - this.speed < 0){
             accuracyDeviation = 0;
+            accuracyBonus = Math.abs(target.speed - this.speed);
         }
         else{
             accuracyDeviation = target.speed - this.speed;
+            accuracyBonus = 0;
         }
-        int accRoll = (int)(Math.random()* (100 - 1 + 1)) + 1;
+        int accRoll = (int)((Math.random() * (100)) + (1 + accuracyBonus));
         if (accRoll <= accuracyDeviation){
             return;
         }
-        target.takeDamage(target, attackPower);
+        target.takeDamage(attackPower, thePlayer);
     }
+    // this if for enemy attacks
+    public void attackTarget(Entity target){
+        int attackPower = this.attack;
+        int accuracyDeviation;
+        int accuracyBonus;
+        
+        if (target.speed - this.speed < 0){
+            accuracyDeviation = 0;
+            accuracyBonus = Math.abs(target.speed - this.speed);
+        }
+        else{
+            accuracyDeviation = target.speed - this.speed;
+            accuracyBonus = 0;
+        }
+        int accRoll = (int)((Math.random() * (100)) + (1 + accuracyBonus));
+        if (accRoll <= accuracyDeviation){
+            return;
+        }
+        target.takeDamage(attackPower);
+    }
+
     
-    // damage framework. Damage can initate a gameover, so THOMAS needs to link it to the game over screen
-    public void takeDamage(Entity target, int damage) {
-        target.currentHp = Math.max(0, currentHp - damage);
-        if (target.id == 0 && target.currentHp <= 0){
+    // this is for the enemy taking damage
+    public void takeDamage(int damage, Player thePlayer) {
+        this.currentHp = Math.max(0, currentHp - damage);
+        if (this.id > 0 && this.currentHp <= 0){
+            thePlayer.gainExp();
+        }
+            if (thePlayer.level == 1){
+            Enemy.pullEnemyT1();
+            }
+            if (thePlayer.level == 2){
+            Enemy.pullEnemyT2();
+            }
+            if (thePlayer.level == 3){
+            Enemy.pullEnemyT3();
+            }
+            if (thePlayer.level == 4){
+            Enemy.pullEnemyT4();
+            }
+            else{
+                Enemy.createBoss(thePlayer);
+            }
+    }
+    // this one is for the player taking damage
+    public void takeDamage(int damage) {
+        this.currentHp = Math.max(0, currentHp - damage);
+        if (this.id == 0 && this.currentHp <= 0){
             //game over screen goes here @THOMAS
         }
     }
 
     // heal framework
     public void heal(int amount) {
+        // ensures that health cannot be negative and damage you
         if (amount < 0) {
-            throw new IllegalArgumentException(
-                    "Healing cannot be negative.");
+        amount = 0;
         }
-        // prevents currentHp from going above maxHp
-        this.currentHp = Math.min(this.maxHp, this.currentHp + amount);
+        
+        this.currentHp += amount;
+        
+        // prevents overhealing
         if (this.currentHp > this.maxHp){
             this.currentHp = this.maxHp;
         }
