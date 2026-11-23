@@ -83,6 +83,7 @@ public class Entity {
     }
     
     // linked to takeDamage
+    
     // this is for player attacks
     public void attackTarget(Entity target, Player thePlayer){
         int attackPower = this.attack;
@@ -103,6 +104,7 @@ public class Entity {
         }
         target.takeDamage(attackPower, thePlayer);
     }
+    
     // this if for enemy attacks
     public void attackTarget(Entity target){
         int attackPower = this.attack;
@@ -130,7 +132,6 @@ public class Entity {
         this.currentHp = Math.max(0, currentHp - damage);
         if (this.id > 0 && this.currentHp <= 0){
             thePlayer.gainExp();
-        }
             if (thePlayer.level == 1){
             Enemy.pullEnemyT1();
             }
@@ -145,6 +146,7 @@ public class Entity {
             }
             else{
                 Enemy.createBoss(thePlayer);
+            }
             }
     }
     // this one is for the player taking damage
