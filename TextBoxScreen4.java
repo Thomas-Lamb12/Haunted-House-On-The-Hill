@@ -1,16 +1,20 @@
 package hauntedhousehill;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 public class TextBoxScreen4 {
     JFrame textBoxScreen;
     JPanel textBoxPanel;
     JPanel continueButtonPanel;
-    JTextField textBox;
+    JTextArea textBox;
     Font buttonFont = new Font("Arial", Font.PLAIN, 30);
     JButton continueButton;
     public TextBoxScreen4()
@@ -22,14 +26,23 @@ public class TextBoxScreen4 {
         textBoxScreen.getContentPane().setBackground(Color.black);
         textBoxScreen.setLayout(null);
         
-        textBoxPanel = new JPanel();
+        textBoxPanel = new JPanel(new BorderLayout());
         textBoxPanel.setBounds(300,200,800,500);
-        textBoxPanel.setBackground(Color.white);
-        textBox = new JTextField();
-        textBox.setBounds(300,200,800,500);
-        textBox.setText("");
+        textBoxPanel.setBackground(Color.black);
+        textBox = new JTextArea("looks like theres only one more floor past the third. "
+                + "Hopefully the creatures up there don’t get any worse."
+                + " This floor looks insane there’s metal walls and science equipment everywhere. "
+                + "This looks like a laboratory of some kind and it looks like there’s some people in here maybe you can ask them for help. "
+                + "It looks like there are running over here. "
+                + "I don’t think those are people I think they might be related to those other things you’ve been fighting."
+                + " You better get ready for the biggest fight yet.");
+        textBox.setLineWrap(true);
+        textBox.setWrapStyleWord(true);
         textBox.setEditable(false);
-        textBoxPanel.add(textBox);
+        textBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        textBox.setMargin(new Insets(15,15,15,15));
+        JScrollPane textScroll = new JScrollPane(textBox);
+        textBoxPanel.add(textScroll, BorderLayout.CENTER);
         textBoxScreen.add(textBoxPanel);
         
         continueButtonPanel = new JPanel();
@@ -42,7 +55,8 @@ public class TextBoxScreen4 {
         continueButtonPanel.add(continueButton);
         textBoxScreen.add(continueButtonPanel);
         continueButton.addActionListener((ActionEvent e) -> {
-            BattleScreenGUI();
+            new BattleScreenGUI();
+            textBoxScreen.setVisible(false);
         });
 
         

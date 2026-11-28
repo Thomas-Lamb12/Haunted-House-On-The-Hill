@@ -1,20 +1,25 @@
 package hauntedhousehill;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
+import static hauntedhousehill.Enemy.*;
+import static hauntedhousehill.Player.*;
+import static hauntedhousehill.Entity.*;
 
 public class BattleScreenGUI 
 {
     JFrame battleScreen;
     JPanel enemyPanel;
     JPanel HPPanel;
+    JLabel HPLabel;
     JLabel HPAmount;
     JPanel HPAmountPanel;
     JPanel APPanel;
     JLabel APAmount;
     JPanel APAmountPanel;
     Font amountFont = new Font("Arial", Font.PLAIN,30);
-    Font buttonFont = new Font("Arial", Font.PLAIN,60);
+    Font buttonFont = new Font("Arial", Font.PLAIN,80);
     JPanel attackPanel;
     JButton attackButton;
     JPanel skillPanel;
@@ -44,15 +49,18 @@ public class BattleScreenGUI
         HPAmountPanel = new JPanel();
         HPAmountPanel.setBounds(90,550,100,50);
         HPAmountPanel.setBackground(Color.white);
-        HPAmount = new JLabel("HP:");
-        HPAmount.setForeground(Color.black);
-        HPAmountPanel.add(HPAmount);
-        HPAmount.setFont(amountFont);
+        HPLabel = new JLabel("HP:");
+        HPLabel.setForeground(Color.black);
+        HPAmountPanel.add(HPLabel);
+        HPLabel.setFont(amountFont);
         battleScreen.add(HPAmountPanel);
         
         HPPanel = new JPanel();
         HPPanel.setBounds(180,550,250,50);
         HPPanel.setBackground(Color.green);
+        HPAmount = newJLabel());
+        HPAmount.setForeground();
+        HPAmount.setFont(amountFont);
         battleScreen.add(HPPanel);
         
         APAmountPanel = new JPanel();
@@ -70,7 +78,7 @@ public class BattleScreenGUI
         battleScreen.add(APPanel);
         
         attackPanel = new JPanel();
-        attackPanel.setBounds(90,650,200,100);
+        attackPanel.setBounds(90,650,300,200);
         attackPanel.setBackground(Color.black);
         attackButton = new JButton("Attack");
         attackButton.setBackground(Color.black);
@@ -78,9 +86,14 @@ public class BattleScreenGUI
         attackButton.setFont(buttonFont);
         attackPanel.add(attackButton);
         battleScreen.add(attackPanel);
+        attackButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                
+            });
+        });
         
         skillPanel = new JPanel();
-        skillPanel.setBounds(90,650,800,100);
+        skillPanel.setBounds(90,650,2100,200);
         skillPanel.setBackground(Color.black);
         skillButton = new JButton("Skills");
         skillButton.setBackground(Color.black);
@@ -88,8 +101,13 @@ public class BattleScreenGUI
         skillButton.setFont(buttonFont);
         skillPanel.add(skillButton);
         battleScreen.add(skillPanel);
+        skillButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                
+            });
+        });
         
-        statPanel = new JPanel();
+        /*statPanel = new JPanel();
         statPanel.setBounds(90,650,1400,200);
         statPanel.setBackground(Color.black);
         statButton = new JButton("Stats");
@@ -98,7 +116,7 @@ public class BattleScreenGUI
         statButton.setFont(buttonFont);
         statPanel.add(statButton);
         battleScreen.add(statPanel);
-        
+        */
         
         /*defendPanel = new JPanel();
         defendPanel.setBounds(90,650,1400,200);
@@ -118,6 +136,7 @@ public class BattleScreenGUI
     public static void main(String[] args) 
     {
         new BattleScreenGUI();
+        
     }
     
 }

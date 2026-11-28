@@ -43,7 +43,8 @@ public class StartScreenGUI
         startButton.setFont(buttonFont);
         startButton.addActionListener((ActionEvent e) -> {
             SwingUtilities.invokeLater(() -> {
-                new BattleScreenGUI();
+                new CharacterCreationScreen();
+                startScreen.setVisible(false);
             });
         });
         startButtonPanel.add(startButton);

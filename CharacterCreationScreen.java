@@ -1,7 +1,11 @@
 package hauntedhousehill;
+import static hauntedhousehill.Enemy.*;
+import static hauntedhousehill.Player.*;
+import static hauntedhousehill.Entity.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class CharacterCreationScreen 
 {
@@ -26,6 +31,7 @@ public class CharacterCreationScreen
     JButton detectiveButton;
     Font classFont = new Font("Arial", Font.BOLD,60);
     Font titleFont = new Font("Arial", Font.BOLD,90);
+    Player thePlayer2;
     
     public CharacterCreationScreen()
     {
@@ -54,6 +60,13 @@ public class CharacterCreationScreen
         boxerButton.setFont(classFont);
         boxerPanel.add(boxerButton);
         charCreateScreen.add(boxerPanel);
+        boxerButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                thePlayer2 = createPlayer(2);
+                new TextBoxScreen();
+                charCreateScreen.setVisible(false);
+            });
+        });
         
         doctorPanel = new JPanel();
         doctorPanel.setBounds(75,650,800,200);
@@ -64,6 +77,13 @@ public class CharacterCreationScreen
         doctorButton.setFont(classFont);
         doctorPanel.add(doctorButton);
         charCreateScreen.add(doctorPanel);
+        doctorButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                thePlayer2 = createPlayer(2);
+                new TextBoxScreen();
+                charCreateScreen.setVisible(false);
+            });
+        });
         
         joblessPanel = new JPanel();
         joblessPanel.setBounds(90,650,1400,200);
@@ -74,6 +94,13 @@ public class CharacterCreationScreen
         joblessButton.setFont(classFont);
         joblessPanel.add(joblessButton);
         charCreateScreen.add(joblessPanel);
+        joblessButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                thePlayer2 = createPlayer(1);
+                new TextBoxScreen();
+                charCreateScreen.setVisible(false);
+            });
+        });
         
         detectivePanel = new JPanel();
         detectivePanel.setBounds(90,650,2100,200);
@@ -84,6 +111,13 @@ public class CharacterCreationScreen
         detectiveButton.setFont(classFont);
         detectivePanel.add(detectiveButton);
         charCreateScreen.add(detectivePanel);
+        detectiveButton.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                thePlayer2 = createPlayer(4);
+                new TextBoxScreen();
+                charCreateScreen.setVisible(false);
+            });
+        });
       
       
         
